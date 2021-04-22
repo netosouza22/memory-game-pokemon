@@ -1,0 +1,202 @@
+@font-face {
+    font-family: poke-font;
+    src: url(./assets/pokemon-firered-leafgreen-font-recreation.ttf);
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'poke-font';
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #73C5A5;
+}
+
+#title{
+    text-align: center;
+    margin-bottom: 10px;
+}
+#mainContainer {
+    width: 65%;
+    margin: 0px -150px;
+}
+
+.container{
+    width: 900px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.card {
+    width: 105px;
+    height: 125px;
+    background-image: url('./assets/pokebola.jpg');
+    background-color: white;
+    background-repeat: no-repeat;
+    background-size: 103px 125px;
+    border: 2px solid black;
+
+    cursor: pointer;
+    margin: 10px;
+}
+
+.clicked:hover{
+    transform: scale(1.1);
+}
+
+.disabledEvents{
+    pointer-events: none;
+}
+
+.card p {
+    font-size: 100px;
+    text-align: center;
+    opacity: 0;
+    display: none;
+}
+
+.btns{
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    font-family: 'poke-font';
+    border: 0px;
+    width: 150px;
+    height: 30px;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    background-color: #ED1B24;
+    color: white;
+}
+
+#reset {
+    background-color: gray;
+}
+
+button:hover {
+    transform: scale(1.1)
+}
+/* ------------------------------------------------SCOREBOARD--------------------------------------------------- */
+.dropdown-content{
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* ------------------------------------------------Players------------------------------------------------------ */
+.players {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.playerImg{
+    width: 50px;
+    height: 70px;
+    background-image: url(./assets/characters/char2.png);
+    background-size: contain;
+}
+/* ---------------------------------------------------MODAL---------------------------------------------------- */
+.modal{
+    display: none;
+    position: fixed;
+    padding-top: 15%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 1);
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.modal-title{
+    position: relative;
+    background-color: white;
+
+    padding: 10px;
+    margin: auto;
+    width: 30%;
+    border: 2px solid black;
+    border-radius: 10px 10px 0px 0px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+.modal-content{
+    position: relative;
+    background-color: white;
+    margin-top: 200px;
+    padding: 20px;
+    margin: auto;
+    width: 30%;
+
+    border: 2px solid black;
+    border-radius: 0px 0px 10px 10px;
+
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+.btnsScore{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+
+}
+
+.close-btn{
+    width: 30px;
+    color: #ED1B24;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: white;
+    cursor: pointer;
+    
+    /* border: 1px solid #000; */
+    margin-bottom: 13px;
+
+}
+#reload {
+    width: 30px;
+    color: #ED1B24;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: white;
+    cursor: pointer;  
+    margin-bottom: 9px;
+    /* border: 1px solid #000; */
+}
+
+table, th, td{
+    border: 1px solid #000;
+    text-align: center;
+    margin: 0px;
+} 
+
+.modal, button .close-btn:hover{
+    color: black;
+}
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+  }
