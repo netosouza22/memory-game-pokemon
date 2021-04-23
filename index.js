@@ -5,9 +5,6 @@ let toCompareId = []; //Use to store the value of name of the spans clicked
 let arrayPokes = []; //To Store the image of each pokemon
 let arrayPokeNames = []; //Store the name of each pokemon
 
-
-
-
 //To player
 let player = 0; //Flag the players is playing now
 let playerObj = {
@@ -238,6 +235,24 @@ function hideModalDraw(){
     modal[2].style.display = 'none';
 }
 
+window.onclick = function(evt){
+    if(evt.target.classList[0] === 'modal'){
+        switch(evt.target.classList[1]){
+            case 'modal0':
+                hideModalErr();
+                break;
+            case 'modal1':
+                hideModalEnd();
+                break;
+            case 'modal2':
+                hideModalDraw();
+                break;
+            case 'modal3':
+                hideModal();
+                break;
+        }
+    }
+}
 // -------------------------------------------------- Scoreboard --------------------------------------------------
 function scoreBoard(scoreP1, scoreP2){
     let nameP1 = playerObj['player0']['id'];
