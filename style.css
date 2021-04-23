@@ -11,15 +11,41 @@
 
 body{
     font-family: 'poke-font';
+
+    /* background-color: #73C5A5; */
+
+}
+#container-img{  
+    position: fixed;
+    z-index: 1;
+    /* display: block; */
+    background-image: url('./assets/poke-bg.png');
+    width: 100%;
+    height: 100%;
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
+}
+#container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-color: #73C5A5;
+    color: black;
+    z-index: 2000;
 }
+
 
 #title{
     text-align: center;
     margin-bottom: 10px;
+    background-color: rgb(240, 24, 24);
+    color: black;
 }
 #mainContainer {
     width: 65%;
@@ -27,7 +53,7 @@ body{
 }
 
 .container{
-    width: 900px;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
 }
@@ -74,7 +100,7 @@ button {
     font-weight: bold;
 
     background-color: #ED1B24;
-    color: white;
+    color: #FFFFEE;
 }
 
 #reset {

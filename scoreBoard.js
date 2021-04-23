@@ -15,9 +15,6 @@ function savingValues(){
     textWinP1.textContent = scoreBoardPlayer1;
     textP2.textContent = P2;
     textWinP2.textContent = scoreBoardPlayer2;
-    
-    console.log(P1, P2, scoreBoardPlayer1, scoreBoardPlayer2);
-    console.log(textP1, textP2, textWinP1, textWinP2);
 }
 
 function resetScore(){

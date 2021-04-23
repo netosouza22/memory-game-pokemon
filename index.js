@@ -1,5 +1,3 @@
-
-
 let qntNumber = [];//What's the index from colors put in the span's array
 let toCompare = []; //Use to get the values of spans clicked
 let toCompareId = []; //Use to store the value of name of the spans clicked
@@ -7,18 +5,28 @@ let toCompareId = []; //Use to store the value of name of the spans clicked
 let arrayPokes = []; //To Store the image of each pokemon
 let arrayPokeNames = []; //Store the name of each pokemon
 
-let scoreBP1 = parseInt(localStorage.getItem('scoreBP1')); 
-let scoreBP2 = parseInt(localStorage.getItem('scoreBP2'));
 
-console.log(scoreBP1, scoreBP2);
+
 
 //To player
 let player = 0; //Flag the players is playing now
 let playerObj = {
-                    player0: { id: 'Italo', score: 0, scoreBoard: scoreBP1},
-                    player1: {id: 'Neto', score: 0, scoreBoard: scoreBP2}
+                    player0: { id: 'Italo', score: 0},
+                    player1: {id: 'Neto', score: 0}
                 }
 let isReset = true;
+
+(
+    function(){
+        let scoreBP1 = parseInt(localStorage.getItem('scoreBP1')); 
+        let scoreBP2 = parseInt(localStorage.getItem('scoreBP2'));
+
+        playerObj.player0.scoreBoard = scoreBP1;
+        playerObj.player1.scoreBoard = scoreBP2;
+
+        console.log(scoreBP1, scoreBP2);
+    }
+)()
 
 /*--------------------------------------------------GET VALUE FROM SESSION STORAGE---------------------------- */
 
@@ -126,6 +134,7 @@ function choosePokemon(){
         let rtnNumber = qntNumberTwo(qntNumber, numberPoke);
 
         cards[i].title = array[numberPoke];
+        cards[i].style.backgroundColor = '#a6ce39';
 
         if(rtnNumber === true){
             array.splice(numberPoke, 1);
