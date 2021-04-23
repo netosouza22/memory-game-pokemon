@@ -11,8 +11,8 @@ let arrayPokeNames = []; //Store the name of each pokemon
 //To player
 let player = 0; //Flag the players is playing now
 let playerObj = {
-                    player0: { id: 'Italo', score: 0},
-                    player1: {id: 'Neto', score: 0}
+                    player0: { id: 'Player 1', score: 0},
+                    player1: {id: 'Player 2', score: 0}
                 }
 let isReset = true;
 
