@@ -28,6 +28,8 @@
 
 <h2 id="-layout"> Layout </h2>
 
-<h2 id="-use"> How to use </h2
+<h2 id="-use"> How to use </h2>
   
 <h2 id="-author"> Author </h2>
+<a href="">
+ <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/63481821?s=400&u=c3af0f4689933e783159263f3c7f8b99fb5909f6&v=4" width="100px;" alt=""/>
