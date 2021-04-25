@@ -8,22 +8,10 @@ let arrayPokeNames = []; //Store the name of each pokemon
 //To player
 let player = 0; //Flag the players is playing now
 let playerObj = {
-                    player0: { id: 'Player 1', score: 0},
-                    player1: {id: 'Player 2', score: 0}
+                    player0: { id: 'Player 1', score: 0, scoreBoard: 0},
+                    player1: {id: 'Player 2', score: 0, scoreBoard: 0},
                 }
-let isReset = true;
-
-(
-    function(){
-        let scoreBP1 = parseInt(localStorage.getItem('scoreBP1')); 
-        let scoreBP2 = parseInt(localStorage.getItem('scoreBP2'));
-
-        playerObj.player0.scoreBoard = scoreBP1;
-        playerObj.player1.scoreBoard = scoreBP2;
-
-        console.log(scoreBP1, scoreBP2);
-    }
-)()
+let isReset = true; //Flag to use the buttons New Game and Reset
 
 /*--------------------------------------------------GET VALUE FROM SESSION STORAGE---------------------------- */
 
@@ -36,7 +24,6 @@ function storePokeArr(){
             arrayPokeNames.push(Object.keys(sessionStorage)[i]);
         }
     }
-    
 }
 
 setTimeout(() => {storePokeArr()}, 2000);
@@ -59,7 +46,8 @@ function selectThePokemons() {
     return arrSelectedPokemons;
 }
 
-function start(){
+window.start = function(){
+
     if(isReset === true){
         let cards = document.getElementsByClassName('card');
         for(let i = 0; i < cards.length; i++){
@@ -221,17 +209,17 @@ function showModal(modalNumber){
     modal[`${modalNumber}`].style.display = 'block';
 }
 
-function hideModal(){
+window.hideModal = function(){
     modal[3].style.display = 'none';
 }
-function hideModalErr(){
+window.hideModalErr = function(){
     modal[0].style.display = 'none';
     backCards();
 }
-function hideModalEnd(){
+window.hideModalEnd = function(){
     modal[1].style.display = 'none';
 }
-function hideModalDraw(){
+window.hideModalDraw = function(){
     modal[2].style.display = 'none';
 }
 
@@ -254,33 +242,37 @@ window.onclick = function(evt){
     }
 }
 // -------------------------------------------------- Scoreboard --------------------------------------------------
+window.onload = () => {
+    storeInLocal();
+}
+function storeInLocal(){
+    localStorage.setItem('player1', playerObj.player0.id);
+    localStorage.setItem('player2', playerObj.player1.id);
+
+    localStorage.setItem('scoreBP1', playerObj.player0.scoreBoard);
+    localStorage.setItem('scoreBP2', playerObj.player1.scoreBoard);
+}
+
 function scoreBoard(scoreP1, scoreP2){
     let nameP1 = playerObj['player0']['id'];
     let nameP2 = playerObj['player1']['id'];
-
-    let scoreBoardP1 = playerObj.player0.scoreBoard;
-    let scoreBoardP2 = playerObj.player1.scoreBoard;
-
+    
     if(scoreP1 === scoreP2){
         modal[2].style.display = 'block';
     }else if(scoreP1 > scoreP2){
         modal[1].style.display = 'block';
         document.getElementById('name').textContent = nameP1;
-        parseInt(scoreBoardP1);
-        scoreBoardP1 += 1;
-        localStorage.setItem('scoreBP1', scoreBoardP1);
+        playerObj.player0.scoreBoard += 1;
     }else{
         modal[1].style.display = 'block';
         document.getElementById('name').textContent = nameP2;
-        scoreBoardP2 += 1;
-        localStorage.setItem('scoreBP2', scoreBoardP2);
+        playerObj.player1.scoreBoard += 1;
     }
-    localStorage.setItem('player1', nameP1);
-    localStorage.setItem('player2', nameP2);
+    storeInLocal();
 }
 
 // -------------------------------------------------- Reset the values --------------------------------------------
-function reset(){
+window.reset = function(){
     let cards = document.getElementsByClassName('card');
     let cardClicked = document.querySelectorAll('.clicked');
 
@@ -308,3 +300,6 @@ function reset(){
     isReset = true;
     
 }
+window.onunload = () => { localStorage.clear() }
+
+export {playerObj};
