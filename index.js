@@ -1,8 +1,9 @@
-let qntNumber = [];//What's the index from colors put in the span's array
-let toCompare = []; //Use to get the values of spans clicked
-let toCompareId = []; //Use to store the value of name of the spans clicked
+let qntNumber = [];//What's the index from arr pokemon put in the span's array
 
-let arrayPokes = []; //To Store the image of each pokemon
+let arrStoreCardValue= []; //Used to store the values of the titile spans clickd
+let arrStoreCardIndex = []; //Used to store the value of the index of each card clicked 
+
+let arrayPokes = []; //To Store the image URL of each pokemon
 let arrayPokeNames = []; //Store the name of each pokemon
 
 //To player
@@ -13,7 +14,7 @@ let playerObj = {
                 }
 let isReset = true; //Flag to use the buttons New Game and Reset
 
-/*--------------------------------------------------GET VALUE FROM SESSION STORAGE---------------------------- */
+/*------------------GET VALUE FROM SESSION STORAGE and CHOOSE THE POKEMONS TO APPEAR---------------------------- */
 
 function storePokeArr(){
     
@@ -25,38 +26,37 @@ function storePokeArr(){
         }
     }
 }
-
 setTimeout(() => {storePokeArr()}, 2000);
-
-function selectThePokemons() {
+function storeSelectedPokemons() {
 
     let arrSelectedPokemons = [];
-    let copiedArray = [];
+    let arrAux = [];
 
     for(let i = 0; i < 28; i++){
-        copiedArray[i] = arrayPokes[i];
+        arrAux[i] = arrayPokes[i];
     }
     for(let i = 0; i < 14 ; i++){
-        let randNumb = Math.floor(Math.random() * copiedArray.length);
-        arrSelectedPokemons.push(copiedArray[randNumb]);
+        let randNumb = Math.floor(Math.random() * arrAux.length);
+        arrSelectedPokemons.push(arrAux[randNumb]);
         
-        copiedArray.splice(randNumb, 1); 
+        arrAux.splice(randNumb, 1); 
     }
  
     return arrSelectedPokemons;
 }
-
+//------------------------------------------START------------------------------------------------------------------
 window.start = function(){
-
     if(isReset === true){
+
         let cards = document.getElementsByClassName('card');
         for(let i = 0; i < cards.length; i++){
             cards[i].classList.add('clicked');
         }
-        choosePokemon();
+        
+        putPokemonInCard();
         startClickEvt();
     
-        player =  Math.floor(Math.random() * 2);
+        player =  Math.floor(Math.random() * 2); //Choose begining player
     
         document.getElementById('nPlayer0').textContent = playerObj['player0']['id'];
         document.getElementById('nPlayer1').textContent = playerObj['player1']['id'];
@@ -73,25 +73,25 @@ window.start = function(){
     }
 }
 
-// ------------------------------------Put the colors in the right place of the board--------------------------------
-function qntNumberTwo(qntNumber, numberColor){
-    qntNumber.push(numberColor); //put the value numberColor in a array
+// ------------------------------------Put the pokemon in the right card-------------------------------
+function isPokemonAppeared(qntNumber, arrIndexPokemon){
+    qntNumber.push(arrIndexPokemon); //put the value arrIndexPokemon in a array
 
     //How many times the number shows in array qntNumber
-    let qnt = qntNumber.filter(item => item == numberColor).length;
+    let qnt = qntNumber.filter(item => item == arrIndexPokemon).length;
 
-    //In case the number shows two times
     if(qnt === 2){
         let val = 2;
-        let numb = numberColor;
+        let numb = arrIndexPokemon;
 
         //Delete the value from array
         while(val > 0){
-            let index = qntNumber.indexOf(numberColor);
+            let index = qntNumber.indexOf(arrIndexPokemon);
             qntNumber.splice(index, 1);
             val--;
         }
-        //if number greater than the value update the value subtracting with one
+
+        //if number greater than the value, update the value subtracting 1 of the values
         let arrUpdated = qntNumber.map((item) => {
             if(item > numb){
                 return (item - 1);
@@ -99,6 +99,7 @@ function qntNumberTwo(qntNumber, numberColor){
                 return item
             }  
         });
+
         // arr qntNumber updated
         for(let i=0; i < arrUpdated.length ; i++){
             qntNumber[i] = arrUpdated[i];    
@@ -109,58 +110,58 @@ function qntNumberTwo(qntNumber, numberColor){
     }
 };
 
-function choosePokemon(){
-    let array = selectThePokemons();
-    let cards = document.getElementsByClassName('card');
+function putPokemonInCard(){
+    let arrSelecetedPokemons = storeSelectedPokemons();
+    let arrCards = document.getElementsByClassName('card');
 
-    for(let i = 0; i < cards.length; i++){
+    for(let i = 0; i < arrCards.length; i++){
+        let randNumber = Math.floor(Math.random() * (arrSelecetedPokemons.length));
+        let rtnNumber = isPokemonAppeared(qntNumber, randNumber);
 
-        let numberPoke = Math.floor(Math.random() * (array.length));
-        let rtnNumber = qntNumberTwo(qntNumber, numberPoke);
-
-        cards[i].title = array[numberPoke];
-        cards[i].style.backgroundColor = '#a6ce39';
+        arrCards[i].title = arrSelecetedPokemons[randNumber];
+        arrCards[i].style.backgroundColor = '#a6ce39';
 
         if(rtnNumber === true){
-            array.splice(numberPoke, 1);
-        }else{
-        }  
+            arrSelecetedPokemons.splice(randNumber, 1);
+        }
     }
 }
 
-// ---------------------------------------------------Verify the values clicked ------------------------------------------------------
+// ---------------------------------------------------VERIFY THE CARDS CLICKED ------------------------------------------------------
 
-function findEquals(color, id){
+function isCardEqual(value, indexCard){
 
     let cards = document.getElementsByClassName('card');
-    toCompare.push(color);
-    toCompareId.push(id);
-    
-    if(color !== "" || color !== "  " ){
-        if(toCompare.length === 2 ){
 
-                let bool = cards[id - 1].classList.contains('clicked');
-                if((toCompare[0] === toCompare[1]) && (toCompareId[0] !== toCompareId[1]) && bool){
+    arrStoreCardValue.push(value);
+    arrStoreCardIndex.push(indexCard);
+
+    if(value !== "" || value !== "  " ){
+        if(arrStoreCardIndex.length === 2 ){
+
+                let hasClassClicked = cards[indexCard - 1].classList.contains('clicked');
+                if((arrStoreCardValue[0] === arrStoreCardValue[1]) && (arrStoreCardIndex[0] !== arrStoreCardIndex[1]) && hasClassClicked){
+                   
                     //To get the score for any player
-                    // document.getElementById('colorName').textContent = `${color}: são iguais`;
                     playerObj[`player${player}`]['score'] = playerObj[`player${player}`]['score'] + 1;
                     document.getElementById(`scoreP${player}`).textContent = playerObj[`player${player}`]['score'];
             
                     let scoreP1 = playerObj['player0']['score'];
                     let scoreP2 = playerObj['player1']['score'];
                     
-                    for(let i = 0; i < toCompareId.length; i++){
-                        cards[toCompareId[i] - 1].classList.remove('clicked');
-                        cards[toCompareId[i] - 1].removeEventListener('click', eventClick, false);
+                    for(let i = 0; i < arrStoreCardIndex.length; i++){
+                        cards[arrStoreCardIndex[i] - 1].classList.remove('clicked');
+                        cards[arrStoreCardIndex[i] - 1].removeEventListener('click', eventClick, false);
                     }   
 
                     showModal(3);
+
                     if((scoreP1 + scoreP2) === 14){
-                        scoreBoard(scoreP1, scoreP2);
+                        updateScoreBoard(scoreP1, scoreP2);
                     }
 
-                    toCompareId = [];
-                    toCompare = [];
+                    arrStoreCardIndex = [];
+                    arrStoreCardValue= [];
                 }else{
                     //Change the player playing 
                     if(player === 1){
@@ -179,16 +180,16 @@ function findEquals(color, id){
     }
 }
 //  Return the cards to pokebola img if they are not equals
-function backCards(){
+function returnToBackCards(){
     let cards = document.getElementsByClassName('card'); 
-    for(let i = 0; i < toCompareId.length; i++){
-        cards[toCompareId[i] - 1].style.backgroundImage = `url(./assets/pokebola.jpg)`;
+    for(let i = 0; i < arrStoreCardIndex.length; i++){
+        cards[arrStoreCardIndex[i] - 1].style.backgroundImage = `url(./assets/pokebola.jpg)`;
     }
-    toCompare = [];
-    toCompareId = [];
+    arrStoreCardValue= [];
+    arrStoreCardIndex = [];
 }
 
-//Add the colors for all spans and allows the event click
+//To all cards allows the event click
 function startClickEvt(){
     let card = document.querySelectorAll('.clicked');
     card.forEach((item) => {
@@ -196,14 +197,15 @@ function startClickEvt(){
     });
 }
 
+//Action of the event of card
 var eventClick = (evt) => {
     let url = evt.target.title;
-    let id = evt.target.textContent;
+    let indexCard = evt.target.textContent;
     evt.target.style.backgroundImage = `url(${url})`;
 
-    findEquals(url, id);
+    isCardEqual(url, indexCard);
 };
-// --------------------------------------------------SHOW E HIDE MODAL-------------------------------------------
+// --------------------------------------------------SHOW AND HIDE MODAL-------------------------------------------
 let modal = document.getElementsByClassName('modal');
 function showModal(modalNumber){
     modal[`${modalNumber}`].style.display = 'block';
@@ -214,7 +216,7 @@ window.hideModal = function(){
 }
 window.hideModalErr = function(){
     modal[0].style.display = 'none';
-    backCards();
+    returnToBackCards();
 }
 window.hideModalEnd = function(){
     modal[1].style.display = 'none';
@@ -243,9 +245,9 @@ window.onclick = function(evt){
 }
 // -------------------------------------------------- Scoreboard --------------------------------------------------
 window.onload = () => {
-    storeInLocal();
+    storeScoreLocalStorage();
 }
-function storeInLocal(){
+function storeScoreLocalStorage(){
     localStorage.setItem('player1', playerObj.player0.id);
     localStorage.setItem('player2', playerObj.player1.id);
 
@@ -253,7 +255,7 @@ function storeInLocal(){
     localStorage.setItem('scoreBP2', playerObj.player1.scoreBoard);
 }
 
-function scoreBoard(scoreP1, scoreP2){
+function updateScoreBoard(scoreP1, scoreP2){
     let nameP1 = playerObj['player0']['id'];
     let nameP2 = playerObj['player1']['id'];
     
@@ -268,21 +270,21 @@ function scoreBoard(scoreP1, scoreP2){
         document.getElementById('name').textContent = nameP2;
         playerObj.player1.scoreBoard += 1;
     }
-    storeInLocal();
+    storeScoreLocalStorage();
 }
 
-// -------------------------------------------------- Reset the values --------------------------------------------
+// -------------------------------------------------- RESET THE VALUES --------------------------------------------
 window.reset = function(){
-    let cards = document.getElementsByClassName('card');
+    let arrCards = document.getElementsByClassName('card');
     let cardClicked = document.querySelectorAll('.clicked');
 
     cardClicked.forEach((item) => {
         item.removeEventListener('click', eventClick, false);
     });
 
-    for(let i = 0; i < cards.length; i++){
-        cards[i].style.backgroundImage = "url(./assets/pokebola.jpg)";
-        cards[i].classList.remove('clicked');
+    for(let i = 0; i < arrCards.length; i++){
+        arrCards[i].style.backgroundImage = "url(./assets/pokebola.jpg)";
+        arrCards[i].classList.remove('clicked');
     }
 
     document.getElementById('scoreP0').textContent = playerObj['player0']['score'] = 0;
@@ -294,12 +296,13 @@ window.reset = function(){
     document.getElementById('newGame').style.backgroundColor = 'red';
     document.getElementById('reset').style.backgroundColor = 'gray';
 
-    toCompare = [];
-    toCompareId = [];
+    arrStoreCardValue= [];
+    arrStoreCardIndex = [];
     qntNumber = [];
     isReset = true;
     
 }
+
 window.onunload = () => { localStorage.clear() }
 
-export {playerObj};
+// export {playerObj};

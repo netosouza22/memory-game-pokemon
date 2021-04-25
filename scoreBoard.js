@@ -1,4 +1,4 @@
-
+let modalScoreBoard = document.getElementsByClassName('modal'); //Get an array of div's with class modal in html
 // ------------------------------------Getting the elements of html
 function savingValuesInModal(){
     var P1 = localStorage.getItem('player1');
@@ -18,15 +18,14 @@ function savingValuesInModal(){
 }
 
 window.resetScore = function(){
-    localStorage.getItem('scoreBP1') = 0;
-    localStorage.getItem('scoreB2')  = 0;
+    localStorage.setItem('scoreBP1', 0);
+    localStorage.setItem('scoreBP2', 0);
     savingValuesInModal()
 }
 
-let modalScoreBoard = document.getElementsByClassName('modal');
 function showScore(){ 
     modalScoreBoard[4].style.display = 'block';
-    savingValuesInModal()
+    savingValuesInModal();
 }
 
 window.hideModalSB = function(){
