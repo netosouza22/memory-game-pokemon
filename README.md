@@ -58,7 +58,9 @@ access the link: <a href="https://memory-game-pokemon-coral.vercel.app/">https:/
       <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/63481821?s=400&u=c3af0f4689933e783159263f3c7f8b99fb5909f6&v=4" width="100px;" alt=""/>
     </p>
   <p align="center">
-     <img src="https://img.shields.io/badge/-Neto%20Sousa-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:netosouzacp@gmail.com"            alt="gmail"> 
+     <a href="mailto:netosouzacp@gmail.com">
+       <img src="https://img.shields.io/badge/-Neto%20Sousa-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:netosouzacp@gmail.com" alt="gmail">
+    </a> 
      <a href="https://www.linkedin.com/in/netosousa/"> 
        <img src="https://img.shields.io/badge/-Neto%20Sousa-c14438?style=flat-square&color=blue&logo=Linkedin&logoColor=white" alt="gmail"> 
      </a>
