@@ -53,7 +53,12 @@ $ git clone https://github.com/netosouza22/memory-game-pokemon.git
 Or
 access the link: <a href="https://memory-game-pokemon-coral.vercel.app/">https://memory-game-pokemon-coral.vercel.app/</a>
 
-
+<h2 id="-tecnologies">⚙️ Tecnologies </h2>
+<ul>
+  <li>Javascript</li>
+  <li>HTML5</li>
+  <li>CSS3</li>
+</ul>
 <h2 id="-author">🦸 Author </h2>
     <p align="center"> 
       <a href="" >
