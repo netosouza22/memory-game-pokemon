@@ -21,7 +21,7 @@
     | &nbsp
   <a href="#-use"> How to Use </a>  &nbsp
     | &nbsp
-  <a href="-tecnologies"> Tecnologies </a>&nbsp
+  <a href="#-tecnologies"> Tecnologies </a>&nbsp
     | &nbsp
   <a href="#-author"> Author </a>
 </p>
